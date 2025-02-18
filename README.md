@@ -1,6 +1,6 @@
 # sample-wasi-http-aks-wasmcloud
 
-Run a `wasi:http' app on AKS + WasmCloud.
+Run a `wasi:http` app on AKS + WasmCloud.
 
 ## 🚀 Deploy the Infrastructure
 
