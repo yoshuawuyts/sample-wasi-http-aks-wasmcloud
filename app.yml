@@ -1,0 +1,33 @@
+apiVersion: core.oam.dev/v1beta1
+kind: Application
+metadata:
+  name: hello-world
+spec:
+  components:
+    - name: http-component
+      type: component
+      properties:
+        image: ghcr.io/yoshuawuyts/sample-wasi-http-rust/rust-wasi-hello:0.1.2 
+      traits:
+        - type: spreadscaler
+          properties:
+            replicas: 1
+
+    - name: httpserver
+      type: capability
+      properties:
+        image: ghcr.io/wasmcloud/http-server:0.26.0
+      traits:
+        - type: link
+          properties:
+            target: http-component
+            namespace: wasi
+            package: http
+            interfaces: [incoming-handler]
+            source_config:
+              - name: default-http
+                properties:
+                  address: 127.0.0.1:8080
+        - type: daemonscaler
+          properties:
+            replicas: 1

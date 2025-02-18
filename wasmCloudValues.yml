@@ -1,0 +1,54 @@
+fullnameOverride: "wasmcloud-platform"
+nameOverride: "wasmcloud-platform"
+
+nats:
+  enabled: true
+  fullnameOverride: "nats"
+  nameOverride: "nats"
+  config:
+    cluster:
+      enabled: true
+      replicas: 3
+    leafnodes:
+      enabled: true
+    websocket:
+      enabled: true
+      port: 4223
+    jetstream:
+      enabled: true
+      fileStore:
+        pvc:
+          size: 10Gi
+      merge:
+        domain: default
+
+wadm:
+  enabled: true
+  fullnameOverride: "wadm"
+  nameOverride: "wadm"
+  wadm:
+    image:
+      tag: v0.20.2
+    config:
+      nats:
+        server: "nats://nats-headless.default.svc.cluster.local"
+  resources: {}
+
+operator:
+  enabled: true
+  fullnameOverride: "wasmcloud-operator"
+  nameOverride: "wasmcloud-operator"
+
+host:
+  enabled: false
+  fullnameOverride: "wasmcloud"
+  nameOverride: "wasmcloud"
+
+hostConfig:
+  enabled: false
+  name: wasmcloud-host
+  lattice: default
+  version: "1.6.1"
+  resources:
+    nats: {}
+    wasmCloudHost: {}

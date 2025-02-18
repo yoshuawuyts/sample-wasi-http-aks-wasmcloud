@@ -19,7 +19,7 @@ resource "azurerm_resource_group" "rg" {
   location = "Central US"
 }
 
-resource "azurerm_kubernetes_cluster" "k8" {
+resource "azurerm_kubernetes_cluster" "aks" {
   name                = "sample-wasi-http-wasmcloud-aks"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
