@@ -16,7 +16,6 @@ Run a `wasi:http` app on AKS + WasmCloud.
    export RG_NAME="$(terraform output -raw resource_group_name)"
    export AKS_NAME="$(terraform output -raw azure_kubernetes_cluster_name)"
    az aks get-credentials --resource-group $RG_NAME --name $AKS_NAME --overwrite-existing
-
    ```
 
 2. Setup WasmCloud:
@@ -48,7 +47,7 @@ Run a `wasi:http` app on AKS + WasmCloud.
 
 **Guests**
 
-- [sample-wasi-http-rust](https://github.com/yoshuawuyts/sample-wasi-http-rust) - A `wasi:http` example program written in Rust
+- [sample-wasi-http-rust](https://github.com/bytecodealliance/sample-wasi-http-rust) - A `wasi:http` example program written in Rust
 
 ## License
 

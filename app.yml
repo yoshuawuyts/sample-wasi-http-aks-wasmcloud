@@ -7,7 +7,7 @@ spec:
     - name: http-component
       type: component
       properties:
-        image: ghcr.io/yoshuawuyts/sample-wasi-http-rust/rust-wasi-hello:0.1.2 
+        image: ghcr.io/bytecodealliance/sample-wasi-http-rust/rust-wasi-hello:0.1.2
       traits:
         - type: spreadscaler
           properties:
