@@ -43,10 +43,38 @@ Run a `wasi:http` app on AKS + WasmCloud.
    curl http://localhost:8080/echo -d 'Hello, from WasmCloud!'
    ```
 
+## (Optional) Configure wasm component verification
+
+This section deploys Gatekeeper and Ratify to your Kubernetes cluster for digital signature verifaction of the wasm component which prevents unsigned deployments from running on your clusters.
+
+
+```sh
+helm repo add gatekeeper https://open-policy-agent.github.io/gatekeeper/charts
+helm install gatekeeper/gatekeeper  \
+--name-template=gatekeeper \
+--namespace gatekeeper-system --create-namespace \
+--set enableExternalData=true \
+--set validatingWebhookTimeoutSeconds=5 \
+--set mutatingWebhookTimeoutSeconds=2 \
+--set externaldataProviderResponseCacheTTL=10s
+
+
+helm repo add ratify https://ratify-project.github.io/ratify
+helm install ratify ratify/ratify \
+    --atomic \
+    --namespace gatekeeper-system \
+    --set cosign.enabled=true \
+    --set featureFlags.RATIFY_CERT_ROTATION=true
+
+kubectl apply -f https://ratify-project.github.io/ratify/library/default/template.yaml
+kubectl apply -f https://ratify-project.github.io/ratify/library/default/samples/constraint.yaml
+
+kubectl apply -f cosign-verifier.yml
+```
+
 ## See Also
 
-**Guests**
-
+**Wasm Guests app repo**
 - [sample-wasi-http-rust](https://github.com/bytecodealliance/sample-wasi-http-rust) - A `wasi:http` example program written in Rust
 
 ## License

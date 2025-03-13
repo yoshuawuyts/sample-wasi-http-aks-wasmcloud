@@ -1,0 +1,23 @@
+apiVersion: config.ratify.deislabs.io/v1beta1
+kind: Verifier
+metadata:
+  name: cosign
+spec:
+  name: cosign
+  artifactTypes: application/vnd.dev.cosign.artifact.sig.v1+json
+  parameters:
+    trustPolicies:
+      - name: default
+        scopes:
+          - "ghcr.io/bytecodealliance/sample-wasi-http-rust/rust-wasi-hello*"
+        keyless:
+          ctLogVerify: true
+          certificateIdentityRegExp: "^https://github.com/bytecodealliance/sample-wasi-http-rust/.github/workflows/publish.yml@.*$"
+          certificateOIDCIssuer: https://token.actions.githubusercontent.com
+      # - name: sample-wasi-http-rust
+      #   scopes:
+      #     - "ghcr.io/yoshuawuyts/sample-wasi-http-rust/rust-wasi-hello*"
+      #   keyless:
+      #     ctLogVerify: true
+      #     certificateIdentity: "https://github.com/yoshuawuyts/sample-wasi-http-rust/.github/workflows/publish.yml@refs/tags/v0.1.2"
+      #     certificateOIDCIssuer: https://token.actions.githubusercontent.com

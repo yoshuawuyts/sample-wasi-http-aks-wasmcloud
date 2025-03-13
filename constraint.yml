@@ -1,0 +1,11 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: RatifyVerification
+metadata:
+  name: wasm
+spec:
+  enforcementAction: deny
+  match:
+    kinds:
+      - apiGroups: ["core.oam.dev/v1beta1"]
+        kinds: ["Application"]
+    namespaces: [""]
